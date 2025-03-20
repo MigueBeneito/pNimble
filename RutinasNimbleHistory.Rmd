@@ -1,0 +1,21 @@
+---
+title: "Historial de cambios a las rutinas nimble"
+output: pdf_document
+date: "2025-02-24"
+---
+
+# RutinasNimble.0.1
+
+* Rutinas originales. Contiene la función pnimble y load_leroux.
+
+# RutinasNimble.0.2
+
+* Incorpora HMC.
+* Adaptación de la distribución de Leroux para que soporte métodos hamiltonianos.
+* Mejora avisos por ntfy mediante una función específica más elaborada.
+* Posibilidad de elección de métodos concretos de simulación de variables más allá de los métodos default.
+* Incorporación de opción parallel.
+* Incorporación de restricción de suma cero a leroux.
+* Poner como muestreador por default para leroux RW univariante.
+* Cambiar argumento sd.theta a sd.
+* Chequear ordenación en from.to.
