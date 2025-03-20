@@ -98,19 +98,14 @@ runParallel <- function(seed, inits = NULL, control.model, control.compile,
   source("https://raw.githubusercontent.com/MigueBeneito/pNimble/refs/heads/main/RutinasNimble.0.2.R")
   load.leroux()
   if(!is.null(inits)) control.model$inits <- inits()
-cat("1.a\n") 
   model.nimble <- do.call(nimbleModel, c(control.model, buildDerivs = HMC), quote = TRUE)
-cat("1.b\n") 
   model.precompiled <- do.call(compileNimble, c(model.nimble,control.compile), quote = TRUE)
-cat("1.c\n")   
   if(WAIC) control.configure$monitors <- unique(c(control.configure$monitors,
                                                   model.nimble$getParents(model.nimble$getNodeNames(dataOnly = TRUE), 
                                                                           stochOnly = TRUE)))
-cat("2\n")  
   if(HMC) model.configure <- do.call(configureHMC, c(model.nimble, control.configure), quote = TRUE)
   else model.configure <- do.call(configureMCMC, c(model.nimble, control.configure), quote = TRUE)
 
-cat("3\n")    
   if(!is.null(replaceSamplers)){
     for(i in 1:length(replaceSamplers[[1]])){ 
       theith<-lapply(replaceSamplers,function(y,j=i){y[[j]]})
@@ -123,7 +118,6 @@ cat("3\n")
     model.configure$printSamplers()
   }
 
-cat("4\n")    
   model.build <- do.call(buildMCMC, c(model.configure, control.build), quote = TRUE)
   model.compiled <- do.call(compileNimble, c(model.build, control.compile), quote =TRUE)
   model.output <- runMCMC(mcmc = model.compiled, nchains = 1, setSeed = seed, 
