@@ -96,6 +96,7 @@ runParallel <- function(seed, inits = NULL, control.model, control.compile,
   set.seed(seed)
   
   source("https://raw.githubusercontent.com/MigueBeneito/pNimble/refs/heads/main/RutinasNimble.0.2.R")
+  #source("~/Trabajo/pNimble/RutinasNimble.0.2.R")
   load.leroux()
   if(!is.null(inits)) control.model$inits <- inits()
   model.nimble <- do.call(nimbleModel, c(control.model, buildDerivs = HMC), quote = TRUE)
