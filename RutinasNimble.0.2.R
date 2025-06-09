@@ -5,7 +5,7 @@ library(nimble)
 library(nimbleHMC)
 
 pNimble<-function(code = NULL, data = NULL, constants = NULL, inits = NULL, nchains = 3, 
-                  seeds = NULL, summary = TRUE, monitors =FALSE, ntfyAccount = NULL,
+                  seeds = NULL, summary = TRUE, monitors = NULL, ntfyAccount = NULL,
                   email = FALSE, WAIC = FALSE, HMC = FALSE, replaceSamplers = NULL,
                   parallel = TRUE, control.model = NULL, control.compile = NULL, 
                   control.configure = NULL, control.build = NULL, ...){

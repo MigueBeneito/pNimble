@@ -19,3 +19,4 @@ date: "2025-02-24"
 * Poner como muestreador por default para leroux RW univariante.
 * Cambiar argumento sd.theta a sd.
 * Chequear ordenación en from.to.
+* Fixed en argumento monitor (no funcionaba)
