@@ -217,7 +217,7 @@ load.leroux<-function(){
       returnType(double(0)) # return type
       if(log){return(log_pdf)} else{return(exp(log_pdf))}
     },
-    buildDerivs = list(run = list(ignore = c('Dist','NMuni','NDist'))
+    buildDerivs = list(run = list(ignore = c('Dist','NMuni','NDist')))
   )
 
   rcar_leroux <- nimbleFunction(
