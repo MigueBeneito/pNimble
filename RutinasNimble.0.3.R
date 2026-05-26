@@ -211,11 +211,11 @@ load.leroux<-function(){
         pow(sd.theta, -2) * rho * sum(pow(x.from[1:NDist] - x.to[1:NDist], 2))/2
       
       if(zero_mean == 1){
-        log_pdf <- log_pdf -1/2 * log(2*pi) + log(10000/(sd.theta^2)) - 5000*(mean(x[1:NMuni])/sd.theta)^2
+        logDens <- logDens -1/2 * log(2*pi) + log(10000/(sd.theta^2)) - 5000*(mean(x[1:NMuni])/sd.theta)^2
       }
       
       returnType(double(0)) # return type
-      if(log){return(log_pdf)} else{return(exp(log_pdf))}
+      if(log){return(logDens)} else{return(exp(logDens))}
     },
     buildDerivs = list(run = list(ignore = c('Dist','NMuni','NDist')))
   )
