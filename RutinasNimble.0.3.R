@@ -68,7 +68,7 @@ pNimble<-function(code = NULL, data = NULL, constants = NULL, inits = NULL, ncha
           resul2$summary <- rbind(resul2$summary, newSummaries)
         }
         if(length(NAs)>0){
-          newSummaries <- matrix(rep(NA,7*length(NAs), ncol = 7)
+          newSummaries <- matrix(rep(NA,7*length(NAs)), ncol = 7)
           rownames(newSummaries) <- colnames(AllSamples)[NAs]
           colnames(newSummaries) <- colnames(resul2$summary)
           resul2$summary <- rbind(resul2$summary, newSummaries)
@@ -82,8 +82,7 @@ pNimble<-function(code = NULL, data = NULL, constants = NULL, inits = NULL, ncha
   }
   if(WAIC){
     model.nimble <- nimbleModel(code = code, data = data, constants = constants,
-                                check = FALSE, calculate = FALSE)#, buildDerivs = FALSE)
-    #Quito el buildsDeriv porque entiendo que ahora no hace falta
+                                check = FALSE, calculate = FALSE, buildDerivs = FALSE)
     cmodel <- compileNimble(model.nimble)
     resul2$WAIC <- calculateWAIC(do.call(rbind,resul2$samples), cmodel)
   } 

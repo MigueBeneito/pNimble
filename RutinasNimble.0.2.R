@@ -4,6 +4,8 @@ library(parallel)
 library(nimble)
 library(nimbleHMC)
 
+# Cuando WAIC=TRUE quito el HMC en la segunda compilación del modelo
+
 pNimble<-function(code = NULL, data = NULL, constants = NULL, inits = NULL, nchains = 3, 
                   seeds = NULL, summary = TRUE, monitors = NULL, ntfyAccount = NULL,
                   email = FALSE, WAIC = FALSE, HMC = FALSE, replaceSamplers = NULL,
@@ -53,7 +55,7 @@ pNimble<-function(code = NULL, data = NULL, constants = NULL, inits = NULL, ncha
   }
   if(WAIC){
     model.nimble <- nimbleModel(code = code, data = data, constants = constants,
-                                check = FALSE, calculate = FALSE, buildDerivs = HMC)
+                                check = FALSE, calculate = FALSE, buildDerivs = FALSE)
     cmodel <- compileNimble(model.nimble)
     resul2$WAIC <- calculateWAIC(do.call(rbind,resul2$samples), cmodel)
   } 
