@@ -20,3 +20,14 @@ date: "2025-02-24"
 * Cambiar argumento sd.theta a sd.
 * Chequear ordenación en from.to.
 * Fixed en argumento monitor (no funcionaba)
+
+# RutinasNimble.0.3
+
+* Incorporación de distribución SPDE.
+* Mejora de distribución de Leroux evitando un buen número de derivadas tal y como se hace en dSPDE.
+* Para WAIC=TRUE quito una de las compilaciones en la compilación final del modelo ya que parece no hacer falta. También quito el buildDerivs=TRUE porque también entiendo que no es necesario, todo esto aligera la ejecución del modelo.
+* La función de carga load.leroux empieza deregistrando esa distribución por si estuviera previamente cargada y ha sufrido alguna modificación.
+* Summaries no se calculan si una variable no tiene variabilidad o tiene NAs (antes daba un error).
+
+TODO:
+* Con on.exit ejecutar siempre notify y devolver objeto aunque fallen partes posteriores de la función.

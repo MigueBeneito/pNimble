@@ -49,11 +49,11 @@ pNimble<-function(code = NULL, data = NULL, constants = NULL, inits = NULL, ncha
   resul2$samples <- coda::as.mcmc.list(lapply(resul,function(x){coda::as.mcmc(x)}))
   if(summary){
     if(parallel){
-      var0<-sapply(resulSpatial$samples,function(x){apply(x,2,var)})
+      var0<-sapply(resul2$samples,function(x){apply(x,2,var)})
       someVar0<-which(apply(var0,1,function(x){any(x==0)}))
       someNAs<-which(apply(var0,1,function(x){any(is.na(x))}))
       if(length(someVar0)>0 | length(someNAs)>0){
-        aux <- lapply(resulSpatial$samples,function(x){x[,-c(someVar0,someNAs)]})
+        aux <- lapply(resul2$samples,function(x){x[,-c(someVar0,someNAs)]})
         resul2$summary <- MCMCvis::MCMCsummary(aux)
         cat("summary of some variables are skipped because either they are constant or they have NAs")
       }
