@@ -49,16 +49,34 @@ pNimble<-function(code = NULL, data = NULL, constants = NULL, inits = NULL, ncha
   resul2$samples <- coda::as.mcmc.list(lapply(resul,function(x){coda::as.mcmc(x)}))
   if(summary){
     if(parallel){
-      var0<-sapply(resul2$samples,function(x){apply(x,2,var)})
-      someVar0<-which(apply(var0,1,function(x){any(x==0)}))
-      someNAs<-which(apply(var0,1,function(x){any(is.na(x))}))
-      if(length(someVar0)>0 | length(someNAs)>0){
-        aux <- lapply(resul2$samples,function(x){x[,-c(someVar0,someNAs)]})
+      AllSamples <- do.call(rbind,resul2$samples)
+      Var0s <- which(apply(AllSamples,2,var)==0)
+      NAs <- which(is.na(apply(AllSamples,2,var)))
+      if(length(Var0s)>0 | length(NAs)>0){
+        aux <- lapply(resul2$samples,function(x){x[,-c(Var0s, NAs)]})
         resul2$summary <- MCMCvis::MCMCsummary(aux)
-        cat("summary of some variables are skipped because either they are constant or they have NAs")
+        if(length(Var0s)>0){
+          newSummaries <- cbind(apply(AllSamples[,Var0s],2,mean), 
+                                rep(0,length(Var0s)),
+                                rep(0,length(Var0s)),
+                                rep(0,length(Var0s)),
+                                rep(0,length(Var0s)),
+                                rep(NA,length(Var0s)),
+                                rep(NA,length(Var0s)))
+          rownames(newSummaries) <- colnames(AllSamples)[Var0s]
+          colnames(newSummaries) <- colnames(resul2$summary)
+          resul2$summary <- rbind(resul2$summary, newSummaries)
+        }
+        if(length(NAs)>0){
+          newSummaries <- matrix(rep(NA,7*length(NAs), ncol = 7)
+          rownames(newSummaries) <- colnames(AllSamples)[NAs]
+          colnames(newSummaries) <- colnames(resul2$summary)
+          resul2$summary <- rbind(resul2$summary, newSummaries)
+        }
+        resul2$summary <- resul2$summary[match(colnames(AllSamples),
+                                               rownames(resul2$summary)),]
       }
       else{resul2$summary <- MCMCvis::MCMCsummary(resul2$samples)}
-      #resul2$summary <- MCMCvis::MCMCsummary(resul2$samples)
     }
     else cat("summary cannot be calculated with a single chain")
   }
