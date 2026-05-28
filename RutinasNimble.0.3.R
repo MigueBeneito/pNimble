@@ -68,7 +68,7 @@ pNimble<-function(code = NULL, data = NULL, constants = NULL, inits = NULL, ncha
           resul2$summary <- rbind(resul2$summary, newSummaries)
         }
         if(length(NAs)>0){
-          newSummaries <- matrix(rep(NA,7*length(NAs)), ncol = 7)
+          newSummaries <- matrix(rep(NA,7*length(NAs)), ncol = 7) #
           rownames(newSummaries) <- colnames(AllSamples)[NAs]
           colnames(newSummaries) <- colnames(resul2$summary)
           resul2$summary <- rbind(resul2$summary, newSummaries)
